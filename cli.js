@@ -21,11 +21,10 @@ prog
   .description('Starts a intraserve server')
   .argument('<config-filepath>', 'Configuration filepath')
   .option('--port <port>', 'Port to bind to', prog.INT, 3000)
-  .option('--https <force>', 'Force HTTPS in production', prog.BOOL, true)
   .option('--session-secret <secret>', 'Session secret (fallback: random)', null)
   .option('--production <force>', 'Force production', prog.BOOL, false)
   .option('--no-watch', 'Do not live-reload users JSON from configuration', prog.BOOL)
-  .action(({ configFilepath }, { port, https, sessionSecret, production, noWatch }, logger) => {
+  .action(({ configFilepath }, { port, sessionSecret, production, noWatch }, logger) => {
     configFilepath = path.resolve(process.cwd(), configFilepath)
 
     try {
@@ -43,7 +42,7 @@ prog
     const watchUsers = !noWatch
     const isProd = process.env.NODE_ENV === 'production' || production
     
-    const app = middleware.init({ config, https, sessionSecret, isProd, watchUsers })
+    const app = middleware.init({ config, sessionSecret, isProd, watchUsers })
 
     app.listen(port, () => {
       console.log(`[intraserve] Listening on port ${port}`)

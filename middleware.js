@@ -17,7 +17,7 @@ const proxy = require('http-proxy-middleware')
 
 exports.crypt = require('./utils/crypt')
 
-exports.init = function init ({ config, https, sessionSecret, isProd, watchUsers }) {
+exports.init = function init ({ config, sessionSecret, isProd, watchUsers }) {
   const users = require('./utils/users')
   const auth = require('./utils/auth')
 
@@ -35,19 +35,9 @@ exports.init = function init ({ config, https, sessionSecret, isProd, watchUsers
     domain: config.domain,
     path: '/',
     maxAge: 1000*60*60*24*30,
-    secure: isProd && https,
+    secure: false, // TODO
     sameSite: 'lax',
   }))
-  
-  if (https && isProd) {
-    app.use((req, res, next) => {
-      if (req.headers['x-forwarded-proto'] !== 'https') {
-        res.redirect(307, 'https://' + req.hostname + req.originalUrl)
-      } else {
-        next()
-      }
-    })
-  }
   
   for (const { id, name, host, getMiddleware } of config.apps) {
     const virtualApp = express()
