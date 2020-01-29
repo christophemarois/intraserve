@@ -41,7 +41,7 @@ exports.init = function init ({ config, https, sessionSecret, isProd, watchUsers
   
   if (https && isProd) {
     app.use((req, res, next) => {
-      if (!req.secure) {
+      if (req.headers['x-forwarded-proto'] !== 'https') {
         res.redirect(307, 'https://' + req.hostname + req.originalUrl)
       } else {
         next()
