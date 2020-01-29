@@ -1,4 +1,4 @@
-# 🤐 Intraserve [![npm](https://img.shields.io/npm/v/privaserve.svg?style=flat)](https://www.npmjs.org/package/privaserve)
+# 🤐 Intraserve [![npm](https://img.shields.io/npm/v/intraserve.svg?style=flat)](https://www.npmjs.org/package/intraserve)
 
 Todo
 
