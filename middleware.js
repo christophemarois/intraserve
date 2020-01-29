@@ -39,15 +39,15 @@ exports.init = function init ({ config, https, sessionSecret, isProd, watchUsers
     sameSite: 'lax',
   }))
   
-  if (https && isProd) {
-    app.use((req, res, next) => {
-      if (!req.secure) {
-        res.redirect(307, 'https://' + req.hostname + req.originalUrl)
-      } else {
-        next()
-      }
-    })
-  }
+  // if (https && isProd) {
+  //   app.use((req, res, next) => {
+  //     if (!req.secure) {
+  //       res.redirect(307, 'https://' + req.hostname + req.originalUrl)
+  //     } else {
+  //       next()
+  //     }
+  //   })
+  // }
   
   for (const { id, name, host, getMiddleware } of config.apps) {
     const virtualApp = express()
