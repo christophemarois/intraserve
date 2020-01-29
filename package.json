@@ -1,6 +1,6 @@
 {
   "name": "intraserve",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Private static and proxy server for teams",
   "main": "middleware.js",
   "bin": {
