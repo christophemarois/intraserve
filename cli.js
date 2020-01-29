@@ -20,7 +20,7 @@ prog
   .command('start')
   .description('Starts a intraserve server')
   .argument('<config-filepath>', 'Configuration filepath')
-  .option('--port <port>', 'Port to bind to', prog.INT, 3000)
+  .option('--port <port>', 'Port to bind to (fallback: PORT, then 3000)', prog.INT)
   .option('--https <force>', 'Force HTTPS in production', prog.BOOL, true)
   .option('--session-secret <secret>', 'Session secret (fallback: random)', null)
   .option('--production <force>', 'Force production', prog.BOOL, false)
@@ -34,6 +34,11 @@ prog
       logger.error(`Could not read config at filepath ${configFilepath}`)
       console.error(err)
       process.exit(1)
+    }
+
+    if (!port) {
+      const envPort = parseInt(process.env.PORT)
+      port = isNaN(envPort) ? 3000 : envPort
     }
 
     if (!sessionSecret) {
