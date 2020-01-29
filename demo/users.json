@@ -1,0 +1,19 @@
+{
+  "user": {
+    "credentials": {
+      "format": "encrypted",
+      "key": "4080699118e412fc98fe08b273b35c883d0415f0d818db220adfe2034fd7d878bb53f24c3245c519889b8e27fe2a7f56157d5409b1d9131c996bdb925e51fc92",
+      "salt": "c14aa0f40a14d39728a9d82763988418"
+    },
+    "allowed": [
+      "static"
+    ]
+  },
+  "admin": {
+    "credentials": {
+      "format": "encrypted",
+      "key": "8cef37d344f98881ad1dfb699d6d98c9df5487ef9264e0849804ac984c76f3971ed3cdcf2a33f74794bbb5eb4d6ee62f6cee03a1efe60a62b58b0360ae23984a",
+      "salt": "8ad56e3fe367725bc00d6b1552ce8b06"
+    }
+  }
+}

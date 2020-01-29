@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form {
+      max-width: 350px;
+      width: 100%;
+      box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.028),
+        0 12.5px 10px rgba(0, 0, 0, 0.035),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.042),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+        0 100px 80px rgba(0, 0, 0, 0.07)
+      ;
+    }
+  </style>
+</head>
+<body>
+  <form action="/" method="POST">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title h5">Log in</div>
+      </div>
+
+      <div class="card-body">
+        <% if (invalid) { %>
+          <div class="toast toast-error" style="margin-bottom: 1rem">
+            Invalid password
+          </div>
+        <% } %>
+        
+        <% if (logout) { %>
+          <div class="toast toast-success" style="margin-bottom: 1rem">
+            Successfully logged out
+          </div>
+        <% } %>
+
+        <div class="form-group">
+          <input id="username" name="username" type="text" placeholder="Username" class="form-input input-lg" tabindex="1">
+        </div>
+
+        <div class="form-group">
+          <input id="password" name="password" type="password" placeholder="Password" class="form-input input-lg" tabindex="2" />
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <div class="btn-group btn-group-block">
+          <input type="submit" value="Log in" class="btn btn-primary" tabindex="3" />
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <script>
+    try {
+      document.getElementById('username').focus()
+      history.replaceState({}, '', '/')
+    } catch (err) {}
+  </script>
+</body>
+</html>

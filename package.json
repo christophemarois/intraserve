@@ -1,0 +1,43 @@
+{
+  "name": "intraserve",
+  "version": "1.0.0",
+  "description": "Private static and proxy server for teams",
+  "main": "middleware.js",
+  "bin": {
+    "intraserve": "./cli.js"
+  },
+  "scripts": {
+    "demo": "./bin.js start demo/intraserve.config.js --port 80 --session-secret dev"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christophemarois/intraserve.git"
+  },
+  "bugs": {
+    "url": "https://github.com/christophemarois/intraserve/issues"
+  },
+  "homepage": "https://github.com/christophemarois/intraserve#readme",
+  "keywords": [
+    "nodejs",
+    "intranet",
+    "proxy",
+    "serve"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "caporal": "^1.3.0",
+    "chokidar": "^3.3.1",
+    "cookie-session": "^1.4.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^0.20.0",
+    "serve-handler": "6.1.2",
+    "tsscmp": "^1.0.6",
+    "vhost": "^3.0.2"
+  }
+}
