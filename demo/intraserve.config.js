@@ -42,12 +42,21 @@ module.exports = {
       description: 'Serve gist.github.com with mobile User-Agent',
       host: 'gist.localtest.me',
       path: '/christophemarois',
+      public: [
+        '/christophemarois'
+      ],
       getMiddleware ({ static, proxy }) {
         return proxy({
           target: 'https://gist.github.com',
           changeOrigin: true,
           ws: true,
-          onProxyReq (proxyReq) {
+          onProxyReq (proxyReq, req, res) {
+            // Inject a special header to notify the target that we are authenticated
+            if (req.session && req.session.username) {
+              // Please use jsonwebtokens though lol
+              proxyReq.setHeader('X-Intraserve-Token', req.session.user)
+            }
+            
             proxyReq.setHeader('User-Agent', 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1')
           }
         })

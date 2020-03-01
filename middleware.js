@@ -9,6 +9,7 @@ const cookieSession = require('cookie-session')
 const ejs = require('ejs')
 const bodyParser = require('body-parser')
 const vhost = require('vhost')
+const { pathToRegexp } = require('path-to-regexp')
 
 // https://github.com/zeit/serve-handler
 const static = require('serve-handler')
@@ -39,11 +40,40 @@ exports.init = function init ({ config, sessionSecret, isProd, watchUsers }) {
     sameSite: 'lax',
   }))
   
-  for (const { id, name, host, getMiddleware } of config.apps) {
+  for (const { id, name, host, getMiddleware, public = [] } of config.apps) {
+    // Create a child express instance for current app
     const virtualApp = express()
     virtualApp.set('trust proxy', 1)
-    virtualApp.use(auth.restrict(id, config.domain))
+
+    // Normalize mixed routePaths and regexps to regexps
+    const publicExps = public.map(el => {
+      if (typeof el === 'string') {
+        return pathToRegexp(el)
+      } else if (el instanceof RegExp) {
+        return el
+      } else {
+        throw new Error(`Invalid public element "${el}" for app ${id}. Must be either a string route path or a RegExp.`)
+      }
+    })
+
+    // Create the app's auth handler
+    const appAuthHandler = auth.restrict(id, config.domain)
+    
+    // Apply the auth handler based on whether the requested URL is public or not
+    virtualApp.use((req, res, next) => {
+      for (const exp of publicExps) {
+        if (exp.exec(req.originalUrl)) {
+          return next()
+        }
+      }
+      
+      return appAuthHandler(req, res, next)
+    })
+
+    // Finally, serve the app's middleware
     virtualApp.use(getMiddleware({ static, proxy }))
+
+    // Plug the app's express instance to the root express app
     app.use(vhost(host, virtualApp))
     console.log(`[intraserve] App "${id}" (${name}) listening to ${host}`)
   }

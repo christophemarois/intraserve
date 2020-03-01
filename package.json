@@ -1,13 +1,13 @@
 {
   "name": "intraserve",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Private static and proxy server for teams",
   "main": "middleware.js",
   "bin": {
     "intraserve": "./cli.js"
   },
   "scripts": {
-    "demo": "./bin.js start demo/intraserve.config.js --port 80 --session-secret dev"
+    "demo": "./cli.js start demo/intraserve.config.js --port 80 --session-secret dev"
   },
   "engines": {
     "node": ">=12"
@@ -36,6 +36,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.20.0",
+    "path-to-regexp": "^6.1.0",
     "serve-handler": "6.1.2",
     "tsscmp": "^1.0.6",
     "vhost": "^3.0.2"
